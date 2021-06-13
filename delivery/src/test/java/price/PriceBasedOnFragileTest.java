@@ -43,7 +43,7 @@ public class PriceBasedOnFragileTest {
     void testFragileLargeDistance(boolean isFragile, BigDecimal distance) {
         assertThatThrownBy(() -> {
             PriceCalculatingUtil.getPriceBasedOnFragile(isFragile, distance);
-        });
+        }).isExactlyInstanceOf(IllegalArgumentException.class);
     }
 
 }

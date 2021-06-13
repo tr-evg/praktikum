@@ -64,6 +64,10 @@ public class PriceCalculatingUtil {
             throw new IllegalArgumentException("Price can't be null");
         }
 
+        if (load == null) {
+            throw new IllegalArgumentException("Load can't be null");
+        }
+
         return price.multiply(load.getLoadCoefficient(), DECIMAL64);
     }
 

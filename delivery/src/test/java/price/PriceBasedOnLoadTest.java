@@ -1,5 +1,7 @@
 package price;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -8,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PriceBasedOnLoadTest {
 
@@ -25,6 +28,22 @@ public class PriceBasedOnLoadTest {
     void testFragileLargeDistance(LoadCoefficient loadCoefficient, BigDecimal priceWithoutLoad, BigDecimal expectedPriceWithLoad) {
         assertThat(PriceCalculatingUtil.getPriceBasedOnLoad(priceWithoutLoad, loadCoefficient))
                 .isEqualByComparingTo(expectedPriceWithLoad);
+    }
+
+    @Test
+    @DisplayName("Check price is null")
+    void testPriceIsNull() {
+        assertThatThrownBy(() -> {
+            PriceCalculatingUtil.getPriceBasedOnLoad(null, LoadCoefficient.NORMAL);
+        }).isExactlyInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("Check load is null")
+    void testLoadIsNull() {
+        assertThatThrownBy(() -> {
+            PriceCalculatingUtil.getPriceBasedOnLoad(BigDecimal.ONE, null);
+        }).isExactlyInstanceOf(IllegalArgumentException.class);
     }
 
 }
