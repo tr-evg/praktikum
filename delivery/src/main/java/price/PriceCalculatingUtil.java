@@ -15,7 +15,7 @@ public class PriceCalculatingUtil {
         return totalPrice.compareTo(new BigDecimal(400)) < 0 ? new BigDecimal(400) : totalPrice;
     }
 
-    public static BigDecimal getPriceBasedOnSize(Boolean isBig) {
+    public static BigDecimal getPriceBasedOnSize(boolean isBig) {
         return isBig ? new BigDecimal(200) : new BigDecimal(100);
     }
 
